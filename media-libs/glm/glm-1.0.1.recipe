@@ -14,15 +14,15 @@ ARCHITECTURES="any"
 SECONDARY_ARCHITECTURES="x86"
 
 PROVIDES="
-	glm = $portVersion
-	devel:glm
+	glm$secondaryArchSuffix = $portVersion
+	devel:glm$secondaryArchSuffix
 	"
 REQUIRES="
-	haiku
+	haiku$secondaryArchSuffix
 	"
 
 BUILD_REQUIRES="
-	haiku_devel
+	haiku${secondaryArchSuffix}_devel
 	"
 
 INSTALL()
