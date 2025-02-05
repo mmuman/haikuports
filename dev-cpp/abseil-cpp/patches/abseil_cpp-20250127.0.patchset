@@ -1,0 +1,58 @@
+From d29c1fb3a442acefd12f54177c00195ef1114bd5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fran=C3=A7ois=20Revol?= <revol@free.fr>
+Date: Wed, 5 Feb 2025 00:19:45 +0000
+Subject: Haiku: GetTID()
+
+
+diff --git a/absl/base/internal/sysinfo.cc b/absl/base/internal/sysinfo.cc
+index 1937db3..08fdd1d 100644
+--- a/absl/base/internal/sysinfo.cc
++++ b/absl/base/internal/sysinfo.cc
+@@ -50,6 +50,10 @@
+ #include <zircon/process.h>
+ #endif
+ 
++#if defined(__HAIKU__)
++#include <OS.h>
++#endif
++
+ #include <string.h>
+ 
+ #include <cassert>
+@@ -475,6 +479,10 @@ pid_t GetTID() {
+   return static_cast<pid_t>(zx_thread_self());
+ }
+ 
++#elif defined(__HAIKU__)
++
++pid_t GetTID() { return find_thread(NULL); }
++
+ #else
+ 
+ // Fallback implementation of `GetTID` using `pthread_self`.
+-- 
+2.45.2
+
+
+From 33e375ff735ef1ea2fac1dfeb8b098f26f4c47a7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Fran=C3=A7ois=20Revol?= <revol@free.fr>
+Date: Wed, 5 Feb 2025 00:31:34 +0000
+Subject: Haiku: force cast for Tid
+
+
+diff --git a/absl/log/internal/log_message.cc b/absl/log/internal/log_message.cc
+index 9e7722d..3dbe3c8 100644
+--- a/absl/log/internal/log_message.cc
++++ b/absl/log/internal/log_message.cc
+@@ -224,7 +224,7 @@ void LogMessage::LogMessageData::InitializeEncodingAndFormat() {
+   EncodeVarint(EventTag::kSeverity,
+                ProtoSeverity(entry.log_severity(), entry.verbosity()),
+                &encoded_remaining());
+-  EncodeVarint(EventTag::kThreadId, entry.tid(), &encoded_remaining());
++  EncodeVarint(EventTag::kThreadId, (uint32_t)entry.tid(), &encoded_remaining());
+ }
+ 
+ void LogMessage::LogMessageData::FinalizeEncodingAndFormat() {
+-- 
+2.45.2
+
