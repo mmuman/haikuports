@@ -1,0 +1,111 @@
+SUMMARY="An efficient method of encoding structured data"
+DESCRIPTION="Protocol buffers are Google's language-neutral, platform-neutral, \
+extensible mechanism for serializing structured data – think XML, but smaller, \
+faster, and simpler. You define how you want your data to be structured once, \
+then you can use special generated source code to easily write and read your \
+structured data to and from a variety of data streams and using a variety of \
+languages – Java, C++, or Python."
+HOMEPAGE="https://github.com/google/protobuf"
+COPYRIGHT="2008-2025 Google"
+LICENSE="Apache v2"
+REVISION="1"
+SOURCE_URI="$HOMEPAGE/archive/v$portVersion.tar.gz"
+CHECKSUM_SHA256="008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e"
+
+ARCHITECTURES="?all !x86_gcc2"
+SECONDARY_ARCHITECTURES="x86"
+
+libVersion="29.3.0"
+libVersionCompat="$libVersion compat >= ${libVersion%%.*}"
+
+PROVIDES="
+	protobuf$secondaryArchSuffix = $portVersion
+	cmd:protoc$secondaryArchSuffix = $portVersion
+	cmd:protoc_$libVersion$secondaryArchSuffix = $portVersion
+	cmd:protoc_gen_upb$secondaryArchSuffix = $portVersion
+	cmd:protoc_gen_upb_$libVersion$secondaryArchSuffix = $portVersion
+	cmd:protoc_gen_upb_minitable$secondaryArchSuffix = $portVersion
+	cmd:protoc_gen_upb_minitable_$libVersion$secondaryArchSuffix = $portVersion
+	cmd:protoc_gen_upbdefs$secondaryArchSuffix = $portVersion
+	cmd:protoc_gen_upbdefs_$libVersion$secondaryArchSuffix = $portVersion
+	lib:libprotobuf$secondaryArchSuffix = $libVersionCompat
+	lib:libprotobuf_lite$secondaryArchSuffix = $libVersionCompat
+	lib:libprotoc$secondaryArchSuffix = $libVersionCompat
+	lib:libupb$secondaryArchSuffix = $libVersionCompat
+	lib:libutf8_range$secondaryArchSuffix = $libVersionCompat
+	lib:libutf8_validity$secondaryArchSuffix = $libVersionCompat
+	"
+REQUIRES="
+	haiku$secondaryArchSuffix
+	lib:libabsl_base$secondaryArchSuffix
+	lib:libz$secondaryArchSuffix
+	"
+
+PROVIDES_devel="
+	protobuf${secondaryArchSuffix}_devel = $portVersion
+	devel:libprotobuf$secondaryArchSuffix = $libVersionCompat
+	devel:libprotobuf_lite$secondaryArchSuffix = $libVersionCompat
+	devel:libprotoc$secondaryArchSuffix = $libVersionCompat
+	devel:libupb$secondaryArchSuffix = $libVersionCompat
+	devel:libutf8_range$secondaryArchSuffix = $libVersionCompat
+	devel:libutf8_validity$secondaryArchSuffix = $libVersionCompat
+	"
+REQUIRES_devel="
+	protobuf$secondaryArchSuffix == $portVersion base
+	"
+
+BUILD_REQUIRES="
+	haiku${secondaryArchSuffix}_devel
+	devel:libabsl_base$secondaryArchSuffix
+	devel:libz$secondaryArchSuffix
+	"
+BUILD_PREREQUIRES="
+	cmd:cmake
+	cmd:gcc$secondaryArchSuffix
+	cmd:libtoolize$secondaryArchSuffix
+	cmd:make
+	"
+
+TEST_REQUIRES="
+	lib:libgmock$secondaryArchSuffix
+"
+
+defineDebugInfoPackage protobuf$secondaryArchSuffix \
+	$libDir/libprotobuf.so.$libVersion \
+	$libDir/libprotoc.so.$libVersion \
+	$libDir/libprotobuf-lite.so.$libVersion
+
+BUILD()
+{
+	mkdir -p build
+	cd build
+	cmake $cmakeDirArgs \
+		-DCMAKE_INSTALL_BINDIR=$binDir \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+		-Dprotobuf_BUILD_TESTS=OFF \
+		-Dprotobuf_ABSL_PROVIDER=package \
+		-Dprotobuf_BUILD_SHARED_LIBS=ON \
+		..
+	
+	make $jobArgs
+}
+
+INSTALL()
+{
+	cd build
+	make install
+
+	#rm -f $libDir/lib*.la $libDir/lib*.a
+	#rm $libDir/lib*.la $libDir/libproto*.a $libDir/libutf8*.a
+
+	prepareInstalledDevelLibs libprotobuf-lite libprotobuf libprotoc \
+		libutf8_range libutf8_validity libupb
+	fixPkgconfig
+	fixCMake
+	packageEntries devel $developDir
+}
+
+TEST()
+{
+	make check
+}
