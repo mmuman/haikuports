@@ -80,7 +80,12 @@ BUILD()
 	mkdir -p build
 	cd build
 	cmake $cmakeDirArgs \
-		-DCMAKE_INSTALL_BINDIR=$binDir \
+		-DCMAKE_INSTALL_PREFIX:PATH=$prefix \
+		-DCMAKE_INSTALL_INCLUDEDIR=$includeDir \
+		-DCMAKE_INSTALL_LIBDIR=$libDir \
+		-DCMAKE_INSTALL_BINDIR:PATH=$binDir \
+		-DCMAKE_INSTALL_SBINDIR:PATH=$binDir \
+		-DCMAKE_INSTALL_LIBEXECDIR:PATH=$binDir \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-Dprotobuf_BUILD_TESTS=OFF \
 		-Dprotobuf_ABSL_PROVIDER=package \
