@@ -70,7 +70,8 @@ PROVIDES="
 	lib:libTKMesh$secondaryArchSuffix = $libVersionCompat
 	lib:libTKMeshVS$secondaryArchSuffix = $libVersionCompat
 	lib:libTKOffset$secondaryArchSuffix = $libVersionCompat
-#	lib:libTKOpenGl$secondaryArchSuffix = $libVersionCompat
+	lib:libTKOpenGl$secondaryArchSuffix = $libVersionCompat
+	#lib:libTKOpenGlTest$secondaryArchSuffix = $libVersionCompat
 	lib:libTKPrim$secondaryArchSuffix = $libVersionCompat
 	lib:libTKRWMesh$secondaryArchSuffix = $libVersionCompat
 	lib:libTKService$secondaryArchSuffix = $libVersionCompat
@@ -95,14 +96,15 @@ REQUIRES="
 	lib:libavformat$secondaryArchSuffix
 	lib:libavutil$secondaryArchSuffix
 	lib:libdraco$secondaryArchSuffix
-#	lib:libEGL$secondaryArchSuffix
+	lib:libEGL$secondaryArchSuffix
 	lib:libexecinfo$secondaryArchSuffix
 	lib:libfontconfig$secondaryArchSuffix
 	lib:libfreeimage$secondaryArchSuffix
 	lib:libfreetype$secondaryArchSuffix
-#	lib:libGL$secondaryArchSuffix
+	lib:libGL$secondaryArchSuffix
 	lib:libswscale$secondaryArchSuffix
-#	lib:libtbb$secondaryArchSuffix
+	lib:libtcl8.6$secondaryArchSuffix
+	lib:libtbb$secondaryArchSuffix
 	lib:libX11$secondaryArchSuffix
 	"
 
@@ -145,8 +147,8 @@ PROVIDES_devel="
 	devel:libTKMessageModel$secondaryArchSuffix = $libVersionCompat
 	devel:libTKMessageView$secondaryArchSuffix = $libVersionCompat
 	devel:libTKOffset$secondaryArchSuffix = $libVersionCompat
-#	devel:libTKOpenGl$secondaryArchSuffix = $libVersionCompat
-#	devel:libTKOpenGlTest$secondaryArchSuffix = $libVersionCompat
+	devel:libTKOpenGl$secondaryArchSuffix = $libVersionCompat
+	devel:libTKOpenGlTest$secondaryArchSuffix = $libVersionCompat
 	devel:libTKPrim$secondaryArchSuffix = $libVersionCompat
 	devel:libTKQADraw$secondaryArchSuffix = $libVersionCompat
 	devel:libTKRWMesh$secondaryArchSuffix = $libVersionCompat
@@ -217,12 +219,12 @@ REQUIRES_samples="
 	lib:libavcodec$secondaryArchSuffix
 	lib:libavformat$secondaryArchSuffix
 	lib:libavutil$secondaryArchSuffix
-#	lib:libEGL$secondaryArchSuffix
+	lib:libEGL$secondaryArchSuffix
 	lib:libexecinfo$secondaryArchSuffix
 	lib:libfontconfig$secondaryArchSuffix
 	lib:libfreeimage$secondaryArchSuffix
 	lib:libfreetype$secondaryArchSuffix
-#	lib:libGL$secondaryArchSuffix
+	lib:libGL$secondaryArchSuffix
 	lib:libQt5Core$secondaryArchSuffix
 	lib:libQt5Gui$secondaryArchSuffix
 	lib:libQt5Qml$secondaryArchSuffix
@@ -231,7 +233,7 @@ REQUIRES_samples="
 	lib:libQt5Widgets$secondaryArchSuffix
 	lib:libQt5Xml$secondaryArchSuffix
 	lib:libswscale$secondaryArchSuffix
-#	lib:libtbb$secondaryArchSuffix
+	lib:libtbb$secondaryArchSuffix
 	lib:libX11$secondaryArchSuffix
 	"
 
@@ -255,7 +257,7 @@ PROVIDES_tools="
 	lib:libTKExpress$secondaryArchSuffix = $libVersionCompat
 	lib:libTKMessageModel$secondaryArchSuffix = $libVersionCompat
 	lib:libTKMessageView$secondaryArchSuffix = $libVersionCompat
-#	lib:libTKOpenGlTest$secondaryArchSuffix = $libVersionCompat
+	lib:libTKOpenGlTest$secondaryArchSuffix = $libVersionCompat
 	lib:libTKQADraw$secondaryArchSuffix = $libVersionCompat
 	lib:libTKShapeView$secondaryArchSuffix = $libVersionCompat
 	lib:libTKTInspector$secondaryArchSuffix = $libVersionCompat
@@ -284,12 +286,12 @@ REQUIRES_tools="
 	lib:libavcodec$secondaryArchSuffix
 	lib:libavformat$secondaryArchSuffix
 	lib:libavutil$secondaryArchSuffix
-#	lib:libEGL$secondaryArchSuffix
+	lib:libEGL$secondaryArchSuffix
 	lib:libexecinfo$secondaryArchSuffix
 	lib:libfontconfig$secondaryArchSuffix
 	lib:libfreeimage$secondaryArchSuffix
 	lib:libfreetype$secondaryArchSuffix
-#	lib:libGL$secondaryArchSuffix
+	lib:libGL$secondaryArchSuffix
 	lib:libQt5Gui$secondaryArchSuffix
 	lib:libQt5Qml$secondaryArchSuffix
 	lib:libQt5QmlModels$secondaryArchSuffix
@@ -297,7 +299,7 @@ REQUIRES_tools="
 	lib:libQt5Widgets$secondaryArchSuffix
 	lib:libQt5Xml$secondaryArchSuffix
 	lib:libswscale$secondaryArchSuffix
-#	lib:libtbb$secondaryArchSuffix
+	lib:libtbb$secondaryArchSuffix
 	lib:libtcl8.6$secondaryArchSuffix
 #	lib:libtk8.6$secondaryArchSuffix
 	lib:libX11$secondaryArchSuffix
@@ -306,16 +308,16 @@ REQUIRES_tools="
 BUILD_REQUIRES="
 	haiku${secondaryArchSuffix}_devel
 	cmd:dot
-	cmd:doxygen >= 1.8.4
+	cmd:doxygen >= 1.12
 	cmd:lrelease$secondaryArchSuffix
 	cmd:tclsh
 	devel:libdraco$secondaryArchSuffix
 	devel:libexecinfo$secondaryArchSuffix
-#	devel:libEGL$secondaryArchSuffix
+	devel:libEGL$secondaryArchSuffix
 	devel:libfontconfig$secondaryArchSuffix
 	devel:libfreeimage$secondaryArchSuffix
 	devel:libfreetype$secondaryArchSuffix
-#	devel:libGL$secondaryArchSuffix
+	devel:libGL$secondaryArchSuffix
 	devel:libQt5Gui$secondaryArchSuffix
 	devel:libQt5Qml$secondaryArchSuffix
 	devel:libQt5QmlModels$secondaryArchSuffix
@@ -323,7 +325,7 @@ BUILD_REQUIRES="
 	devel:libQt5Widgets$secondaryArchSuffix
 	devel:libQt5Xml$secondaryArchSuffix
 	devel:librapidjson$secondaryArchSuffix
-#	devel:libtbb$secondaryArchSuffix
+	devel:libtbb$secondaryArchSuffix
 	devel:libtclstub8.6$secondaryArchSuffix
 #	devel:libtk8.6$secondaryArchSuffix
 	devel:libX11$secondaryArchSuffix
@@ -363,7 +365,7 @@ BUILD()
 		-DUSE_DRACO=ON \
 		-DUSE_FFMPEG=ON \
 		-DUSE_FREEIMAGE=ON \
-		-DUSE_OPENGL=OFF \
+		-DUSE_OPENGL=ON \
 		-DUSE_OPENVR=OFF \
 		-DUSE_RAPIDJSON=ON \
 		-DUSE_TBB=OFF \
@@ -385,7 +387,7 @@ INSTALL()
 		libTKDEOBJ libTKDEPLY libTKDESTEP libTKDESTL libTKDEVRML libTKDFBrowser libTKDraw \
 		libTKernel libTKExpress libTKFeat libTKFillet libTKG2d libTKG3d libTKGeomAlgo \
 		libTKGeomBase libTKHLR libTKLCAF libTKMath libTKMesh libTKMeshVS libTKMessageModel \
-		libTKMessageView libTKOffset libTKPrim libTKQADraw libTKRWMesh libTKService \
+		libTKMessageView libTKOffset libTKOpenGl libTKOpenGlTest libTKPrim libTKQADraw libTKRWMesh libTKService \
 		libTKShapeView libTKShHealing libTKStd libTKStdL libTKTInspector libTKTInspectorAPI \
 		libTKTObj libTKTObjDRAW libTKToolsDraw libTKTopAlgo libTKTopTest libTKTreeModel libTKV3d \
 		libTKVCAF libTKView libTKViewerTest libTKVInspector libTKXCAF libTKXDEDRAW libTKXMesh \
@@ -419,7 +421,7 @@ INSTALL()
 	toolsLibs="libTKDraw libTKTopTest libTKViewerTest libTKXSDRAW libTKXSDRAWDE libTKXSDRAWGLTF \
 		libTKXSDRAWIGES libTKXSDRAWOBJ libTKXSDRAWPLY libTKXSDRAWSTEP libTKXSDRAWSTL \
 		libTKXSDRAWVRML libTKDCAF libTKXDEDRAW libTKTObjDRAW libTKQADraw libTKShapeView \
-		libTKMessageModel libTKMessageView libTKView libTKVInspector libTKTreeModel \
+		libTKMessageModel libTKMessageView libTKOpenGlTest libTKView libTKVInspector libTKTreeModel \
 		libTKDFBrowser libTKToolsDraw"
 	for lib in $toolsLibs; do
 		ln -s $lib.so.$portVersion $libDir/$lib.so
