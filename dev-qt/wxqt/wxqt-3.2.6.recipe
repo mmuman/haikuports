@@ -7,20 +7,20 @@ applications a truly native look and feel because it uses the platform's \
 native API rather than emulating the GUI. It's also extensive, free, \
 open-source and mature."
 HOMEPAGE="https://www.wxwidgets.org/"
-COPYRIGHT="1998-2023 Julian Smart, Robert Roebling et al"
+COPYRIGHT="1998-2025 Julian Smart, Robert Roebling et al"
 LICENSE="GNU LGPL v2"
 REVISION="2"
 SOURCE_URI="https://github.com/wxWidgets/wxWidgets/releases/download/v$portVersion/wxWidgets-$portVersion.tar.bz2"
-CHECKSUM_SHA256="0640e1ab716db5af2ecb7389dbef6138d7679261fbff730d23845ba838ca133e"
+CHECKSUM_SHA256="939e5b77ddc5b6092d1d7d29491fe67010a2433cf9b9c0d841ee4d04acb9dce7"
 SOURCE_DIR="wxWidgets-$portVersion"
-PATCHES="wxqt-$portVersion.patchset"
+#PATCHES="wxqt-$portVersion.patchset"
 
 ARCHITECTURES="all !x86_gcc2"
 SECONDARY_ARCHITECTURES="x86"
 
 libVersion="$portVersion"
 libVersionCompat="$libVersion compat >= ${libVersion%%.*}"
-libSoVersion="0.2.2"
+libSoVersion="0.3.0"
 
 PROVIDES="
 	wxqt$secondaryArchSuffix = $portVersion
@@ -30,7 +30,7 @@ PROVIDES="
 	lib:libwx_qtu_adv_3.2$secondaryArchSuffix = $libVersionCompat
 	lib:libwx_qtu_aui_3.2$secondaryArchSuffix = $libVersionCompat
 	lib:libwx_qtu_core_3.2$secondaryArchSuffix = $libVersionCompat
-#	lib:libwx_qtu_gl_3.2$secondaryArchSuffix = $libVersionCompat
+	lib:libwx_qtu_gl_3.2$secondaryArchSuffix = $libVersionCompat
 	lib:libwx_qtu_html_3.2$secondaryArchSuffix = $libVersionCompat
 	lib:libwx_qtu_media_3.2$secondaryArchSuffix = $libVersionCompat
 	lib:libwx_qtu_propgrid_3.2$secondaryArchSuffix = $libVersionCompat
@@ -45,8 +45,8 @@ REQUIRES="
 	lib:libcairo$secondaryArchSuffix
 	lib:libexecinfo$secondaryArchSuffix
 	lib:libexpat$secondaryArchSuffix
-#	lib:libGL$secondaryArchSuffix
-#	lib:libGLU$secondaryArchSuffix
+	lib:libGL$secondaryArchSuffix
+	lib:libGLU$secondaryArchSuffix
 	lib:libiconv$secondaryArchSuffix
 	lib:libjpeg$secondaryArchSuffix
 	lib:liblzma$secondaryArchSuffix
@@ -71,7 +71,7 @@ PROVIDES_devel="
 	devel:libwx_qtu_adv_3.2$secondaryArchSuffix = $libVersionCompat
 	devel:libwx_qtu_aui_3.2$secondaryArchSuffix = $libVersionCompat
 	devel:libwx_qtu_core_3.2$secondaryArchSuffix = $libVersionCompat
-#	devel:libwx_qtu_gl_3.2$secondaryArchSuffix = $libVersionCompat
+	devel:libwx_qtu_gl_3.2$secondaryArchSuffix = $libVersionCompat
 	devel:libwx_qtu_html_3.2$secondaryArchSuffix = $libVersionCompat
 	devel:libwx_qtu_media_3.2$secondaryArchSuffix = $libVersionCompat
 	devel:libwx_qtu_propgrid_3.2$secondaryArchSuffix = $libVersionCompat
@@ -103,8 +103,8 @@ BUILD_REQUIRES="
 	devel:libcairo$secondaryArchSuffix
 	devel:libexecinfo$secondaryArchSuffix
 	devel:libexpat$secondaryArchSuffix
-#	devel:libGL$secondaryArchSuffix
-#	devel:libGLU$secondaryArchSuffix
+	devel:libGL$secondaryArchSuffix
+	devel:libGLU$secondaryArchSuffix
 	devel:libiconv$secondaryArchSuffix
 	devel:libjpeg$secondaryArchSuffix
 	devel:liblzma$secondaryArchSuffix
@@ -140,12 +140,12 @@ defineDebugInfoPackage wxqt$secondaryArchSuffix \
 	"$libDir"/libwx_qtu_ribbon-3.2.so.$libSoVersion \
 	"$libDir"/libwx_qtu_richtext-3.2.so.$libSoVersion \
 	"$libDir"/libwx_qtu_stc-3.2.so.$libSoVersion \
-	"$libDir"/libwx_qtu_xrc-3.2.so.$libSoVersion
-#	"$libDir"/libwx_qtu_gl-3.2.so.$libSoVersion
+	"$libDir"/libwx_qtu_xrc-3.2.so.$libSoVersion \
+	"$libDir"/libwx_qtu_gl-3.2.so.$libSoVersion
 
 BUILD()
 {
-	export CXXFLAGS="-std=c++11 -fpermissive"
+	export CXXFLAGS="-std=c++11 -fpermissive -O2"
 
 	runConfigure ./configure \
 		--with-qt \
@@ -176,8 +176,8 @@ INSTALL()
 		libwx_qtu_ribbon-3.2 \
 		libwx_qtu_richtext-3.2 \
 		libwx_qtu_stc-3.2 \
-		libwx_qtu_xrc-3.2
-#		libwx_qtu_gl-3.2
+		libwx_qtu_xrc-3.2 \
+		libwx_qtu_gl-3.2
 
 	# Install some missing headers that the build system didn't install.
 	cp  include/wx/generic/caret.h \
